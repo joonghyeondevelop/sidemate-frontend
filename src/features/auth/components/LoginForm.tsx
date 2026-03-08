@@ -4,12 +4,32 @@ import usePageMove from "../../../shared/hooks/usePageMove";
 import { loginSchema, type LoginFormSchemaType } from "../schemas/loginSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginMutation } from "../api/useLoginMutation";
+import { useAuthStore } from "../store/auth.store";
+import { getMe } from "../api/auth";
+import type { AxiosError } from "axios";
+import { toast } from "sonner";
 
 const LoginForm = () => {
-  const { moveSingup } = usePageMove();
+  const { moveSingup, moveHome } = usePageMove();
+  const { mutate } = useLoginMutation();
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const onSubmit = (data: LoginFormSchemaType) => {
-    console.log("로그인 데이터", data);
+    mutate(data, {
+      onSuccess: async (res) => {
+        localStorage.setItem("accessToken", res);
+
+        const me = await getMe();
+        setAuth(me);
+
+        moveHome();
+      },
+      onError: (error: AxiosError<any>) => {
+        const message = error.response?.data?.message;
+        toast.error(message);
+      },
+    });
   };
 
   const {

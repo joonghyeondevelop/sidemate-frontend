@@ -4,12 +4,26 @@ import { signupSchema, type signUpSchemaType } from "../schemas/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "../../../shared/ui/Input";
 import Button from "../../../shared/ui/Button";
+import { useSignUpMutation } from "../api/useSignUpMutation";
+import { toast } from "sonner";
+import type { AxiosError } from "axios";
 
 const SignUpForm = () => {
   const { moveLogin } = usePageMove();
+  const { mutate } = useSignUpMutation();
 
   const onSubmit = (data: signUpSchemaType) => {
-    console.log("회원가입 데이터", data);
+    const { passwordConfirm, ...signupData } = data;
+    mutate(signupData, {
+      onSuccess: () => {
+        toast.success("회원가입이 완료되었습니다.");
+        moveLogin();
+      },
+      onError: (error: AxiosError<any>) => {
+        const message = error.response?.data?.message;
+        toast.error(message);
+      },
+    });
   };
 
   const {
@@ -61,12 +75,7 @@ const SignUpForm = () => {
             {...register("name")}
           />
         </div>
-        <Button
-          content="회원가입하기"
-          size="full"
-          buttonType="submit"
-          onClick={moveLogin}
-        />
+        <Button content="회원가입하기" size="full" buttonType="submit" />
       </form>
     </div>
   );
