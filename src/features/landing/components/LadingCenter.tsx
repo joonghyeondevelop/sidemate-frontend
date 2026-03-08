@@ -12,7 +12,12 @@ const LadingCenter = ({ page }: ladingProps) => {
         관리하세요.
       </p>
       <div>
-        <Button weight={35} height={10} content="시작하기" onClick={page} />
+        <Button
+          size={"lg"}
+          content="시작하기"
+          onClick={page}
+          buttonType="button"
+        />
       </div>
     </div>
   );

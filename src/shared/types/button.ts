@@ -1,6 +1,6 @@
 export type buttonPropsType = {
-  height: number;
-  weight: number | string;
+  size: "sm" | "md" | "lg" | "full";
   content: string;
   onClick?: () => void;
+  buttonType: "submit" | "button";
 };

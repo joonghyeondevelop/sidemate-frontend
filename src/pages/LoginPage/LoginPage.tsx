@@ -1,4 +1,3 @@
-import React from "react";
 import LoginLayout from "../../features/auth/layout/LoginLayout";
 
 const LoginPage = () => {

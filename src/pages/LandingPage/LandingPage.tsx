@@ -1,4 +1,3 @@
-import React from "react";
 import LandingLayout from "../../features/landing/components/LandingLayout";
 
 const LandingPage = () => {
