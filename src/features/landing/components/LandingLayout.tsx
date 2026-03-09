@@ -1,7 +1,6 @@
-import React from "react";
 import LandingTopbar from "./LandingTopbar";
 import LadingCenter from "./LadingCenter";
-import usePageMove from "../hooks/usePageMove";
+import usePageMove from "../../../shared/hooks/usePageMove";
 
 const LandingLayout = () => {
   const { moveLogin } = usePageMove();

@@ -1,7 +1,11 @@
-import React from "react";
+import SignUpLayout from "../../features/auth/layout/SignUpLayout";
 
 const SignUpPage = () => {
-  return <div>SignUpPage</div>;
+  return (
+    <div>
+      <SignUpLayout />
+    </div>
+  );
 };
 
 export default SignUpPage;
